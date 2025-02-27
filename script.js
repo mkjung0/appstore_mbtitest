@@ -462,8 +462,18 @@ function showResult() {
     document.getElementById('question').classList.remove('active');
     document.getElementById('result').classList.add('active');
     
+    // MBTI 결과를 한 번만 계산하고 저장
     const mbti = calculateResult();
     const type = types[mbti];
+    window.finalMbti = mbti;
+    window.finalType = type;
+    
+    console.log('Calculated MBTI:', mbti);  // 디버깅용
+    
+    // 결과 컨테이너를 미리 비우기
+    document.getElementById('resultType').innerHTML = '';
+    document.getElementById('resultDescription').innerHTML = '';
+    document.querySelector('.app-list').innerHTML = '';
     
     setTimeout(() => {
         const headerText = document.querySelector('.result-header h1');
@@ -479,33 +489,41 @@ function showResult() {
             index++;
             if (index >= text.length) {
                 clearInterval(typing);
-                // 타이핑 완료 후 결과 표시
+                // 타이핑 완료 후 저장된 결과 표시
                 setTimeout(() => {
                     showResultContent(mbti, type);
                 }, 500);
             }
-        }, 150);  // 각 글자가 150ms 간격으로 타이핑
+        }, 150);
     }, 500);
 }
 
 // 결과 내용을 표시하는 함수 분리
 function showResultContent(mbti, type) {
-    document.getElementById('resultType').innerHTML = `
+    console.log('Showing result for:', mbti);  // 디버깅용
+    
+    // 결과를 한 번에 설정
+    const resultContent = `
         <div class="mbti-type typing-animation-fade">${mbti} ${type.emoji}</div>
         <div class="mbti-name typing-animation-fade">${type.name}</div>
     `;
-    document.getElementById('resultDescription').innerHTML = `
+    document.getElementById('resultType').innerHTML = resultContent;
+    
+    const descriptionContent = `
         <p class="typing-animation-fade">${type.description}</p>
     `;
+    document.getElementById('resultDescription').innerHTML = descriptionContent;
     
     setTimeout(() => {
+        // 앱 리스트도 한 번에 설정
         const appList = document.querySelector('.app-list');
-        appList.innerHTML = type.apps.map(app => `
+        const appsContent = type.apps.map(app => `
             <div class="app typing-animation-fade" onclick="window.open('${app.url}', '_blank')">
                 <div class="app-image" style="background-image: url('./images/apps/${app.name}.${app.imageExt}')"></div>
                 <h4>${app.name}</h4>
             </div>
         `).join('');
+        appList.innerHTML = appsContent;
     }, 1000);
 }
 
@@ -529,8 +547,8 @@ function goToAppStore() {
 
 // 결과 공유하기
 function shareResult() {
-    const mbti = calculateResult();
-    const type = types[mbti];
+    const mbti = window.finalMbti;
+    const type = window.finalType;
     const text = `나의 쇼핑몰 운영 스타일은 ${mbti} : ${type.name}입니다!\n테스트 하러가기 👉 ${window.location.href}`;
     
     navigator.clipboard.writeText(text)
