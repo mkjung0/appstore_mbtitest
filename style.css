@@ -1,0 +1,425 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Pretendard', sans-serif;
+    background-color: #f8fafb;
+    color: #333;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+.section {
+    display: none;
+    text-align: center;
+    background: white;
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.5s ease;
+}
+
+.section.active {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* 시작 화면 스타일 */
+.intro-text {
+    margin: 30px 0;
+    word-break: keep-all;
+    line-height: 1.8;
+    font-size: 1.2em;
+}
+
+.intro-text p {
+    margin: 20px 0;
+    padding: 0 20px;
+}
+
+.highlight {
+    color: #35A77E;
+    font-weight: bold;
+}
+
+.accent {
+    color: #2E8F6D;
+    font-weight: bold;
+}
+
+#start button {
+    font-size: 1.4em;
+    font-weight: bold;
+    padding: 20px 40px;
+    background: linear-gradient(45deg, #35A77E, #2E8F6D);
+    box-shadow: 0 4px 15px rgba(64, 201, 151, 0.3);
+}
+
+#start button:hover {
+    background: linear-gradient(45deg, #2E8F6D, #35A77E);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(64, 201, 151, 0.4);
+}
+
+/* 질문 화면 스타일 */
+.progress-container {
+    margin-bottom: 30px;
+}
+
+.progress-text {
+    text-align: right;
+    margin-bottom: 10px;
+    color: #666;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 10px;
+    background-color: #eee;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.progress {
+    width: 0%;
+    height: 100%;
+    background-color: #40C997;
+    transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.answers {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 0 15px;
+    margin: 30px 0;
+}
+
+.answers button {
+    font-size: 1.2em;
+    padding: 20px 25px;
+    line-height: 1.5;
+    word-break: keep-all;
+    white-space: pre-wrap;
+    border: 2px solid transparent;
+}
+
+.answers button:first-child {
+    background: linear-gradient(45deg, #35A77E, #2E8F6D);
+    box-shadow: 0 4px 15px rgba(64, 201, 151, 0.2);
+}
+
+.answers button:last-child {
+    background: linear-gradient(45deg, #35A77E, #2E8F6D);
+    border: none;
+    color: white;
+    box-shadow: 0 4px 15px rgba(64, 201, 151, 0.1);
+}
+
+.answers button:first-child:hover {
+    background: linear-gradient(45deg, #2E8F6D, #35A77E);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(64, 201, 151, 0.3);
+}
+
+.answers button:last-child:hover {
+    background: linear-gradient(45deg, #2E8F6D, #35A77E);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(64, 201, 151, 0.2);
+}
+
+/* 결과 화면 스타일 개선 */
+.result-header {
+    margin-bottom: 30px;
+}
+
+.result-header h2 {
+    font-size: 1.4em;
+    color: #40C997;
+    margin-bottom: 15px;
+}
+
+.result-header h1 {
+    font-size: 1.8em;
+    margin-bottom: 20px;
+    position: relative;
+    display: inline-block;
+}
+
+.result-type {
+    margin: 30px 0;
+    padding: 30px;
+    background: #f8f9fa;
+    border-radius: 15px;
+    word-break: keep-all;
+    line-height: 1.7;
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.result-type p {
+    font-size: 1.1em;
+    color: #555;
+    padding: 0 10px;
+}
+
+#recommendedApps {
+    margin-top: 40px;
+}
+
+#recommendedApps h3 {
+    font-size: 1.4em;
+    margin-bottom: 25px;
+    color: #333;
+    letter-spacing: -0.5px;
+    font-weight: 600;
+}
+
+.app-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin: 25px 0;
+}
+
+.app {
+    background: white;
+    padding: 15px;
+    border-radius: 12px;
+    text-align: center;
+    line-height: 1.6;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+    position: relative;
+    transform: translateY(0);
+}
+
+.app-image {
+    width: 100%;
+    height: 100px;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: white;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+/* 3D 효과를 위한 추가 스타일 */
+.app::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.app:hover::after {
+    opacity: 1;
+}
+
+.app:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.app h4 {
+    font-size: 1.1em;
+    color: #333;
+    text-align: center;
+    word-break: keep-all;
+}
+
+.app p {
+    color: #555;
+    font-size: 1em;
+    margin-bottom: 15px;
+}
+
+/* 모바일 반응형 처리 */
+@media (max-width: 480px) {
+    .app-list {
+        grid-template-columns: 1fr;
+    }
+}
+
+.action-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 0 15px;
+    margin-top: 30px;
+}
+
+/* 버튼 스타일 */
+button {
+    padding: 18px 30px;
+    font-size: 1.1em;
+    border: none;
+    border-radius: 8px;
+    background-color: #40C997;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+    transform: translateY(0);
+}
+
+button:hover {
+    background-color: #34B089;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.restart-btn {
+    background-color: #6c757d;
+}
+
+.restart-btn:hover {
+    background-color: #5a6268;
+}
+
+/* 공유 버튼 스타일 수정 */
+.action-buttons button {
+    margin-bottom: 10px;
+}
+
+/* 불필요한 소셜 미디어 관련 스타일 제거 */
+.share-buttons,
+.kakao-share,
+.facebook-share {
+    display: none;
+}
+
+/* 질문 스타일 개선 */
+#questionText {
+    font-size: 1.5em;
+    margin: 30px 0;
+    padding: 0 20px;
+    word-break: keep-all;
+    line-height: 1.6;
+}
+
+#resultDescription {
+    margin-top: 20px;
+    color: #666;
+    font-size: 1.1em;
+    line-height: 1.6;
+    word-break: keep-all;
+}
+
+.mbti-type {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 0;
+    letter-spacing: 1px;
+}
+
+.mbti-name {
+    font-size: 0.85em;
+    color: #333;
+    margin-top: 0;
+    line-height: 1.4;
+}
+
+.intro-image {
+    margin: -30px -30px 20px;
+    overflow: hidden;
+    border-radius: 20px 20px 0 0;
+    background-color: #f8fafb;
+    padding: 0;
+}
+
+.intro-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+/* 카페24 앱스토어 버튼 스타일 */
+button[onclick="goToAppStore()"] {
+    background: linear-gradient(45deg, #2D7FF9, #4DA3FF);
+    box-shadow: 0 4px 15px rgba(45, 127, 249, 0.3);
+}
+
+button[onclick="goToAppStore()"]:hover {
+    background: linear-gradient(45deg, #246CD9, #2D7FF9);
+    box-shadow: 0 6px 20px rgba(45, 127, 249, 0.4);
+}
+
+@keyframes typing-cursor {
+    50% { border-color: transparent }
+}
+
+@keyframes fadeIn {
+    from { 
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to { 
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.typing-animation-fade {
+    opacity: 0;
+    animation: fadeIn 0.8s ease-out forwards;
+}
+
+/* 앱 리스트 아이템 순차 애니메이션 */
+.app.typing-animation-fade {
+    animation-delay: 0.2s;
+}
+
+.app:nth-child(2).typing-animation-fade {
+    animation-delay: 0.4s;
+}
+
+/* 결과 페이지 배경색 */
+#result.section {
+    background-color: #f8fafb;
+}
+
+/* 결과 페이지의 결과 타입 박스 배경색 조정 */
+#result .result-type {
+    background: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.03);
+}
+
+/* 결과 페이지의 앱 카드 배경색 강조 */
+#result .app {
+    background: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+}
+
+.typing-animation {
+    overflow: hidden;
+    white-space: nowrap;
+    border-right: 2px solid #333;
+    animation: typing-cursor 0.75s step-end infinite;
+}
+
+@keyframes typing-cursor {
+    50% { border-color: transparent }
+} 
