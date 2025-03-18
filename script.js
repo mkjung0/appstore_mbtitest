@@ -279,9 +279,9 @@ const types = {
         emoji: "🌟",
         apps: [
             {
-                name: "카페24 PRO",
+                name: "크리마리뷰",
                 imageExt: "png",
-                url: "https://store.cafe24.com/kr/apps/26155"
+                url: "https://store.cafe24.com/kr/apps/1406"
             },
             {
                 name: "스냅박스 AI",
@@ -313,9 +313,9 @@ const types = {
         emoji: "⚖️",
         apps: [
             {
-                name: "카페24 PRO",
+                name: "크리마리뷰",
                 imageExt: "png",
-                url: "https://store.cafe24.com/kr/apps/26155"
+                url: "https://store.cafe24.com/kr/apps/1406"
             },
             {
                 name: "이지샵 자동장부",
